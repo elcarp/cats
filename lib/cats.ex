@@ -1,3 +1,3 @@
 defmodule Cats do
-defstruct [:name, :id, :breed, :age, :value]
+  defstruct [:name, :id, :breed, :age, :value]
 end
