@@ -8,7 +8,7 @@ defmodule Cats.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      {Cats.Cat, 0}
+      Cats.Cat
       # Starts a worker by calling: Stateful.Worker.start_link(arg)
       # {Stateful.Worker, arg}
     ]
