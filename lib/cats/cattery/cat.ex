@@ -1,4 +1,5 @@
 defmodule Cats.Cattery.Cat do
+  @derive Jason.Encoder
   defstruct [:id, :name, :age, :breed]
 
   def new(%{name: name, age: age, breed: breed}) do
