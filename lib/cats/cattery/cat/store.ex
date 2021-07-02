@@ -1,7 +1,7 @@
-defmodule Cats.Store do
+defmodule Cats.Cattery.Cat.Store do
   use Agent
 
-  alias Cats.Cat
+  alias Cats.Cattery.Cat
 
   def start_link(_) do
     Agent.start_link(fn -> [] end, name: __MODULE__)

@@ -5,10 +5,11 @@ defmodule Cats.Application do
 
   use Application
 
-  @impl true
   def start(_type, _args) do
     children = [
-      Cats.Cat
+      Cats.Cattery.Cat.Store,
+      {Plug.Cowboy, scheme: :http, plug: Cats.Router, options: [port: 4040]}
+
       # Starts a worker by calling: Stateful.Worker.start_link(arg)
       # {Stateful.Worker, arg}
     ]

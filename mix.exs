@@ -14,7 +14,7 @@ defmodule Cats.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger, :cowboy, :plug],
+      extra_applications: [:logger],
       mod: {Cats.Application, []}
     ]
   end
@@ -22,10 +22,10 @@ defmodule Cats.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:uuid, "~> 1.1"},
-      {:cowboy, "~> 2.6"},
-      {:plug, "~> 1.7"},
-      {:plug_cowboy, "~> 2.0"}
+      {:plug, "~> 1.11"},
+      {:plug_cowboy, "~> 2.0"},
+      {:jason, "~> 1.2"},
+      {:uuid, "~> 1.1"}
       # {:dep_from_hexpm, "~> 0.3.0"},
       # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
     ]
