@@ -1,7 +1,6 @@
 defmodule Cats.Cattery do
   alias __MODULE__.Cat
 
-
   defdelegate new_cat(params),
     to: Cat,
     as: :new
