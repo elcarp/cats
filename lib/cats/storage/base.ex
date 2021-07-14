@@ -30,6 +30,29 @@ defmodule Cats.Storage.Base do
           end)
         end)
       end
+
+      def preload(resource) do
+        preloaded =
+          resource
+          |> Map.from_struct()
+          |> Enum.filter(fn {key, value} ->
+            case value do
+              %m{} ->
+                m == Cats.Storage.Association
+
+              _ ->
+                false
+            end
+          end)
+          |> Enum.map(fn {key, value} ->
+            module = Module.safe_concat(value.module, Store)
+
+            {key, module.get(value.resource_id)}
+          end)
+          |> Enum.into(%{})
+
+        Map.merge(resource, preloaded)
+      end
     end
   end
 end
