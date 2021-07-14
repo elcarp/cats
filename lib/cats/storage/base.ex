@@ -9,23 +9,14 @@ defmodule Cats.Storage.Base do
         Agent.start_link(fn -> [] end, name: __MODULE__)
       end
 
-      def add(%unquote(module){} = resource) do
-        all()
-        checkIfExists(resource.id)
-        # detect if id exists, if so return error
-        Agent.update(__MODULE__, fn state -> [resource | state] end)
-      end
+      def add(%unquote(module){id: resource_id} = resource) do
+        case get(resource_id) do
+          nil ->
+            Agent.update(__MODULE__, fn state -> [resource | state] end)
 
-      def checkIfExists(resource_id) do
-        #Agent.get(__MODULE__, fn state ->
-          Enum.find(all(), fn resource ->
-            if resource.id == resource_id do
-              IO.puts("cat exists")
-            else
-              IO.puts("no cat exists")
-            end
-          end)
-        #end)
+          %unquote(module){} ->
+            {:error, :already_exists}
+        end
       end
 
       def all do
