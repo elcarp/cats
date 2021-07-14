@@ -15,7 +15,7 @@ defmodule Cats.Storage.Base do
             Agent.update(__MODULE__, fn state -> [resource | state] end)
 
           %unquote(module){} ->
-            {:error, :already_exists}
+            {:error, :cat_already_exists}
         end
       end
 
