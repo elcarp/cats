@@ -19,6 +19,28 @@ defmodule Cats.Storage.Base do
         end
       end
 
+      def update(%unquote(module){id: resource_id} = resource, params) do
+        sanitized_params = Map.delete(params, :id)
+
+        case get(resource_id) do
+          %unquote(module){} = resource ->
+            updated_resource = Map.merge(resource, sanitized_params)
+
+            Agent.update(__MODULE__, fn state ->
+              without_resource =
+                state
+                |> Enum.reject(fn r ->
+                  r.id == resource_id
+                end)
+
+              [updated_resource | without_resource]
+            end)
+
+          nil ->
+            {:error, :not_found}
+        end
+      end
+
       def all do
         Agent.get(__MODULE__, fn state -> state end)
       end
